@@ -29,7 +29,7 @@ export const register = async (req,res) =>{
 export const addProduct = async(req,res) =>{
     try {
         const {title, price, description, image, category} = req.body;
-        fetch('https://fakestoreapi.com/products',{
+        const response = await fetch('https://fakestoreapi.com/products',{
             method:"POST",
             body:JSON.stringify(
                 {
@@ -41,9 +41,10 @@ export const addProduct = async(req,res) =>{
                 }
             )
         })
-            .then(res=>res.json())
-            .then(json=>console.log(json))
-        return res.send(json);
+        const viewProduct = await response.json();
+            // .then(res=>res.json())
+            // .then(json=>console.log(json))
+        return res.send(viewProduct);
     } catch (error) {
         return res.send(error);
     }
